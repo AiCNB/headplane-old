@@ -1,8 +1,7 @@
 # Nix
-
 [English](Nix.md) | [简体中文](Nix.zh-CN.md)
 
-[flake.nix](../flake.nix) provided:
+提供的 [flake.nix](../flake.nix)：
 ```
 $ nix flake show . --all-systems
 git+file:///home/igor/personal/headplane?ref=refs/heads/nix&rev=2d78a95a0648a3778e114fb246ea436e96475d62
@@ -30,14 +29,14 @@ git+file:///home/igor/personal/headplane?ref=refs/heads/nix&rev=2d78a95a0648a377
         └───headplane-agent: package 'hp_agent-0.5.3-SNAPSHOT'
 ```
 
-## NixOS module options
-Defined as `services.headplane.*`, check the `./nix/` directory for details.
+## NixOS 模块选项
+定义为 `services.headplane.*`，详情见 `./nix/` 目录。
 
-## Usage
+## 使用方法
 
-1. Add the `github:tale/headplane` flake input.
-2. Import a default overlay to add `pkgs.headplane` and `pkgs.headplane-agent`.
-3. Import NixOS module for `services.headplane.*`.
+1. 添加 `github:tale/headplane` flake 输入。
+2. 导入默认 overlay 以添加 `pkgs.headplane` 和 `pkgs.headplane-agent`。
+3. 导入 NixOS 模块以获得 `services.headplane.*`。
 
 ```nix
 # Your flake.nix
@@ -58,10 +57,10 @@ Defined as `services.headplane.*`, check the `./nix/` directory for details.
     nixosConfigurations.MY_MACHINE = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        # provides `services.headplane.*` NixOS options.
+        # 提供 `services.headplane.*` NixOS 选项。
         headplane.nixosModules.headplane
         {
-          # provides `pkgs.headplane` and `pkgs.headplane-agent`.
+          # 提供 `pkgs.headplane` 和 `pkgs.headplane-agent`。
           nixpkgs.overlays = [ headplane.overlays.default ];
         }
         {
@@ -69,7 +68,7 @@ Defined as `services.headplane.*`, check the `./nix/` directory for details.
           let
             format = pkgs.formats.yaml {};
 
-            # A workaround generate a valid Headscale config accepted by Headplane when `config_strict == true`.
+            # 生成一个 Headplane 接受的有效 Headscale 配置（当 `config_strict == true` 时）。
             settings = lib.recursiveUpdate config.services.headscale.settings {
               acme_email = "/dev/null";
               tls_cert_path = "/dev/null";
@@ -83,8 +82,8 @@ Defined as `services.headplane.*`, check the `./nix/` directory for details.
             services.headplane = {
               enable = true;
               agent = {
-                # As an example only.
-                # Headplane Agent hasn't yet been ready at the moment of writing the doc.
+                # 仅作为示例。
+                # 撰写本文档时 Headplane Agent 尚未准备好。
                 enable = true;
                 settings = {
                   HEADPLANE_AGENT_DEBUG = true;
@@ -113,7 +112,7 @@ Defined as `services.headplane.*`, check the `./nix/` directory for details.
                   client_id = "headplane";
                   client_secret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
                   disable_api_key_login = true;
-                  # Might needed when integrating with Authelia.
+                  # 与 Authelia 集成时可能需要。
                   token_endpoint_auth_method = "client_secret_basic";
                   headscale_api_key = "xxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
                   redirect_uri = "https://oidc.example.com/admin/oidc/callback";

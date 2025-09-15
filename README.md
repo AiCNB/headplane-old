@@ -1,4 +1,5 @@
 # Headplane
+[English](README.md) | [简体中文](README.zh-CN.md)
 > A feature-complete web UI for [Headscale](https://headscale.net)
 
 <picture>

@@ -1,5 +1,7 @@
 # Simple Mode
 
+[English](Simple-Mode.md) | [简体中文](Simple-Mode.zh-CN.md)
+
 Simple mode enables you to quickly deploy Headplane and is recommended for any
 testing or simple environments. It does not include the automatic management of
 DNS and Headplane settings, requiring manual editing and reloading when making
