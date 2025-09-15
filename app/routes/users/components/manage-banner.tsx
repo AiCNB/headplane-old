@@ -2,6 +2,7 @@ import { Building2, House, Key } from 'lucide-react';
 import Card from '~/components/Card';
 import Link from '~/components/Link';
 import type { HeadplaneConfig } from '~/server/config/schema';
+import { t } from '~/utils/i18n';
 import CreateUser from '../dialogs/create-user';
 
 interface ManageBannerProps {
@@ -25,12 +26,11 @@ export default function ManageBanner({ oidc, isDisabled }: ManageBannerProps) {
 					<p className="text-sm text-headplane-600 dark:text-headplane-300">
 						{oidc ? (
 							<>
-								Users are managed through your{' '}
+								{t('users.manage_banner.oidc_prefix')}
 								<Link to={oidc.issuer} name="OIDC Provider">
 									OpenID Connect provider
 								</Link>
-								{'. '}
-								Groups and user information do not automatically sync.{' '}
+								{t('users.manage_banner.oidc_suffix')}
 								<Link
 									to="https://headscale.net/stable/ref/oidc"
 									name="Headscale OIDC Documentation"
@@ -40,8 +40,7 @@ export default function ManageBanner({ oidc, isDisabled }: ManageBannerProps) {
 							</>
 						) : (
 							<>
-								Users are not managed externally. Using OpenID Connect can
-								create a better experience when using Headscale.{' '}
+								{t('users.manage_banner.not_managed')}
 								<Link
 									to="https://headscale.net/stable/ref/oidc"
 									name="Headscale OIDC Documentation"

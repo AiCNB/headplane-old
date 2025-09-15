@@ -18,6 +18,7 @@ import StatusCircle from '~/components/StatusCircle';
 import { LoadContext } from '~/server';
 import { Machine } from '~/types';
 import cn from '~/utils/cn';
+import { t } from '~/utils/i18n';
 import { useLiveData } from '~/utils/live-data';
 import log from '~/utils/log';
 import toast from '~/utils/toast';
@@ -139,7 +140,7 @@ export default function Page() {
 
 					<Options
 						defaultSelectedKey={osValue}
-						label="Download Selector"
+						label={t('onboarding.download_selector')}
 						className="my-4"
 					>
 						<Options.Item
@@ -184,12 +185,12 @@ export default function Page() {
 						>
 							<a
 								href="https://pkgs.tailscale.com/stable/tailscale-setup-latest.exe"
-								aria-label="Download for Windows"
+								aria-label={t('onboarding.download_windows')}
 								target="_blank"
 								rel="noreferrer"
 							>
 								<Button variant="heavy" className="my-4 w-full">
-									Download for Windows
+									{t('onboarding.download_windows')}
 								</Button>
 							</a>
 							<p className="text-sm text-headplane-600 dark:text-headplane-300 text-center">
@@ -207,12 +208,12 @@ export default function Page() {
 						>
 							<a
 								href="https://pkgs.tailscale.com/stable/Tailscale-latest-macos.pkg"
-								aria-label="Download for macOS"
+								aria-label={t('onboarding.download_macos')}
 								target="_blank"
 								rel="noreferrer"
 							>
 								<Button variant="heavy" className="my-4 w-full">
-									Download for macOS
+									{t('onboarding.download_macos')}
 								</Button>
 							</a>
 							<p className="text-sm text-headplane-600 dark:text-headplane-300 text-center">
@@ -239,12 +240,12 @@ export default function Page() {
 						>
 							<a
 								href="https://apps.apple.com/us/app/tailscale/id1470499037"
-								aria-label="Download for iOS"
+								aria-label={t('onboarding.download_ios')}
 								target="_blank"
 								rel="noreferrer"
 							>
 								<Button variant="heavy" className="my-4 w-full">
-									Download for iOS
+									{t('onboarding.download_ios')}
 								</Button>
 							</a>
 							<p className="text-sm text-headplane-600 dark:text-headplane-300 text-center">
@@ -262,12 +263,12 @@ export default function Page() {
 						>
 							<a
 								href="https://play.google.com/store/apps/details?id=com.tailscale.ipn"
-								aria-label="Download for Android"
+								aria-label={t('onboarding.download_android')}
 								target="_blank"
 								rel="noreferrer"
 							>
 								<Button variant="heavy" className="my-4 w-full">
-									Download for Android
+									{t('onboarding.download_android')}
 								</Button>
 							</a>
 							<p className="text-sm text-headplane-600 dark:text-headplane-300 text-center">

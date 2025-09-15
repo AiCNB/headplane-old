@@ -12,6 +12,7 @@ import Logo from '~/components/Logo';
 import Menu from '~/components/Menu';
 import { AuthSession } from '~/server/web/sessions';
 import cn from '~/utils/cn';
+import { t } from '~/utils/i18n';
 
 interface Props {
 	configAvailable: boolean;
@@ -95,7 +96,10 @@ export default function Header(data: Props) {
 					<h1 className="text-2xl font-semibold">headplane</h1>
 				</div>
 				<div className="flex items-center gap-x-4">
-					<Link href="https://tailscale.com/download" text="Download" />
+					<Link
+						href="https://tailscale.com/download"
+						text={t('header.download')}
+					/>
 					<Link href="https://github.com/tale/headplane" text="GitHub" />
 					<Link href="https://github.com/juanfont/headscale" text="Headscale" />
 					{data.user ? (
@@ -131,7 +135,9 @@ export default function Header(data: Props) {
 								<Menu.Section>
 									<Menu.Item key="profile" textValue="Profile">
 										<div className="text-black dark:text-headplane-50">
-											<p className="font-bold">{data.user.name || data.user.displayName}</p>
+											<p className="font-bold">
+												{data.user.name || data.user.displayName}
+											</p>
 											<p>{data.user.email}</p>
 										</div>
 									</Menu.Item>
@@ -149,14 +155,14 @@ export default function Header(data: Props) {
 					{data.access.machines ? (
 						<TabLink
 							to="/machines"
-							name="Machines"
+							name={t('header.nav.machines')}
 							icon={<Server className="w-5" />}
 						/>
 					) : undefined}
 					{data.access.users ? (
 						<TabLink
 							to="/users"
-							name="Users"
+							name={t('header.nav.users')}
 							icon={<Users className="w-5" />}
 						/>
 					) : undefined}

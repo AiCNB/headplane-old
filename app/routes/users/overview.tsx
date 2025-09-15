@@ -5,6 +5,7 @@ import type { LoadContext } from '~/server';
 import { Capabilities } from '~/server/web/roles';
 import { Machine, User } from '~/types';
 import cn from '~/utils/cn';
+import { t } from '~/utils/i18n';
 import ManageBanner from './components/manage-banner';
 import UserRow from './components/user-row';
 import { userAction } from './user-actions';
@@ -103,7 +104,7 @@ export default function Page() {
 
 	return (
 		<>
-			<h1 className="text-2xl font-medium mb-1.5">Users</h1>
+			<h1 className="text-2xl font-medium mb-1.5">{t('users.title')}</h1>
 			<p className="mb-8 text-md">
 				Manage the users in your network and their permissions. Tip: You can
 				drag machines between users to change ownership.
