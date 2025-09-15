@@ -1,0 +1,134 @@
+[
+	{
+		"id": "agent.config.load_failed",
+		"translation": "Failed to load config: {{.Error}}"
+	},
+	{
+		"id": "agent.config.required_env",
+		"translation": "{{.Name}} is required"
+	},
+	{
+		"id": "agent.config.ts_unreachable",
+		"translation": "Failed to connect to TS control server: {{.Reason}}"
+	},
+	{
+		"id": "agent.hpagent.unmarshal_failed",
+		"translation": "Unable to unmarshal message: {{.Error}}"
+	},
+	{
+		"id": "agent.hpagent.full_error",
+		"translation": "Full Error: {{.Error}}"
+	},
+	{
+		"id": "agent.hpagent.received_message",
+		"translation": "Received message from master: {{.Message}}"
+	},
+	{
+		"id": "agent.hpagent.missing_node_ids",
+		"translation": "Message received had no node IDs"
+	},
+	{
+		"id": "agent.hpagent.full_message",
+		"translation": "Full message: {{.Message}}"
+	},
+	{
+		"id": "agent.hpagent.status_failed",
+		"translation": "Unable to get status for node {{.NodeID}}: {{.Error}}"
+	},
+	{
+		"id": "agent.hpagent.status_missing",
+		"translation": "No status for node {{.NodeID}}"
+	},
+	{
+		"id": "agent.hpagent.sending_status",
+		"translation": "Sending status back to master: {{.Results}}"
+	},
+	{
+		"id": "agent.hpagent.stdin_error",
+		"translation": "Error reading from stdin: {{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.invalid_node_prefix",
+		"translation": "Node ID with missing prefix: {{.NodeID}}"
+	},
+	{
+		"id": "agent.tsnet.query_peer",
+		"translation": "Querying status of peer: {{.NodeID}}"
+	},
+	{
+		"id": "agent.tsnet.status_failed",
+		"translation": "Failed to get status: {{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.decode_failed",
+		"translation": "Failed to decode hex: {{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.invalid_length",
+		"translation": "Invalid node ID length: {{.Length}}"
+	},
+	{
+		"id": "agent.tsnet.peer_not_found",
+		"translation": "Peer not found in status: {{.NodeID}}"
+	},
+	{
+		"id": "agent.tsnet.whois_failed",
+		"translation": "Failed to get whois: {{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.got_whois",
+		"translation": "Got whois for peer {{.NodeID}}: {{.Whois}}"
+	},
+	{
+		"id": "agent.tsnet.abs_path_failed",
+		"translation": "Failed to get absolute path: {{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.workdir_create_failed",
+		"translation": "Cannot create agent work directory: {{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.tailnet_connect_failed",
+		"translation": "Failed to connect to Tailnet: {{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.local_client_failed",
+		"translation": "Failed to initialize local Tailscale client: {{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.marshal_failed",
+		"translation": "Failed to marshal public key: {{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.connected",
+		"translation": "Connected to Tailnet (PublicKey: {{.PublicKey}})"
+	},
+	{
+		"id": "agent.logger.debug_enabled",
+		"translation": "Enabling Debug logging for headplane-agent"
+	},
+	{
+		"id": "agent.logger.debug_warning",
+		"translation": "Be careful, this will spam a lot of information"
+	},
+	{
+		"id": "agent.tsnet.error.invalid_node_id",
+		"translation": "invalid node ID: {{.NodeID}}"
+	},
+	{
+		"id": "agent.tsnet.error.get_status",
+		"translation": "failed to get status: {{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.error.decode_hex",
+		"translation": "failed to decode hex: {{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.error.invalid_length",
+		"translation": "invalid node ID length: {{.Length}}"
+	},
+	{
+		"id": "agent.tsnet.error.whois",
+		"translation": "failed to get whois: {{.Error}}"
+	}
+]

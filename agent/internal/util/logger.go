@@ -7,6 +7,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/tale/headplane/agent/internal/i18n"
 )
 
 type LogLevel string
@@ -54,8 +56,16 @@ func NewLogger() *Logger {
 func (l *Logger) SetDebug(enabled bool) {
 	if enabled {
 		l.debugEnabled = true
-		l.Info("Enabling Debug logging for headplane-agent")
-		l.Info("Be careful, this will spam a lot of information")
+		l.Info("%s", i18n.Message(
+			"agent.logger.debug_enabled",
+			"Enabling Debug logging for headplane-agent",
+			nil,
+		))
+		l.Info("%s", i18n.Message(
+			"agent.logger.debug_warning",
+			"Be careful, this will spam a lot of information",
+			nil,
+		))
 	}
 }
 

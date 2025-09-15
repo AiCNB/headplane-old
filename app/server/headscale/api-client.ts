@@ -1,8 +1,10 @@
 import { readFile } from 'node:fs/promises';
+import type { TFunction } from 'i18next';
 import { data } from 'react-router';
 import { Agent, Dispatcher, request } from 'undici';
 import { errors } from 'undici';
 import log from '~/utils/log';
+import { getTranslator } from '../i18n.server';
 import ResponseError from './api-error';
 
 function isNodeNetworkError(error: unknown): error is NodeJS.ErrnoException {
@@ -15,7 +17,9 @@ function isNodeNetworkError(error: unknown): error is NodeJS.ErrnoException {
 	);
 }
 
-function friendlyError(givenError: unknown) {
+type Translator = TFunction<'server'>;
+
+function friendlyError(givenError: unknown, t: Translator) {
 	let error: unknown = givenError;
 	if (error instanceof AggregateError) {
 		error = error.errors[0];
@@ -25,8 +29,8 @@ function friendlyError(givenError: unknown) {
 		case error instanceof errors.BodyTimeoutError:
 		case error instanceof errors.ConnectTimeoutError:
 		case error instanceof errors.HeadersTimeoutError:
-			return data('Timed out waiting for a response from the Headscale API', {
-				statusText: 'Request Timeout',
+			return data(t('errors.headscale.timeout'), {
+				statusText: t('status.requestTimeout'),
 				status: 408,
 			});
 
@@ -35,16 +39,16 @@ function friendlyError(givenError: unknown) {
 		case error instanceof errors.ClientClosedError:
 		case error instanceof errors.ClientDestroyedError:
 		case error instanceof errors.RequestAbortedError:
-			return data('The Headscale API is not reachable', {
-				statusText: 'Service Unavailable',
+			return data(t('errors.headscale.unreachable'), {
+				statusText: t('status.serviceUnavailable'),
 				status: 503,
 			});
 
 		case error instanceof errors.InvalidArgumentError:
 		case error instanceof errors.InvalidReturnValueError:
 		case error instanceof errors.NotSupportedError:
-			return data('Unable to make a request (this is most likely a bug)', {
-				statusText: 'Internal Server Error',
+			return data(t('errors.headscale.unableRequest'), {
+				statusText: t('status.internalServerError'),
 				status: 500,
 			});
 
@@ -52,76 +56,76 @@ function friendlyError(givenError: unknown) {
 		case error instanceof errors.RequestContentLengthMismatchError:
 		case error instanceof errors.ResponseContentLengthMismatchError:
 		case error instanceof errors.ResponseExceededMaxSizeError:
-			return data('The Headscale API returned a malformed response', {
-				statusText: 'Bad Gateway',
+			return data(t('errors.headscale.malformed'), {
+				statusText: t('status.badGateway'),
 				status: 502,
 			});
 
 		case isNodeNetworkError(error):
 			if (error.code === 'ECONNREFUSED') {
-				return data('The Headscale API is not reachable', {
-					statusText: 'Service Unavailable',
+				return data(t('errors.headscale.unreachable'), {
+					statusText: t('status.serviceUnavailable'),
 					status: 503,
 				});
 			}
 
 			if (error.code === 'ENOTFOUND') {
-				return data('The Headscale API is not reachable', {
-					statusText: 'Service Unavailable',
+				return data(t('errors.headscale.unreachable'), {
+					statusText: t('status.serviceUnavailable'),
 					status: 503,
 				});
 			}
 
 			if (error.code === 'EAI_AGAIN') {
-				return data('The Headscale API is not reachable', {
-					statusText: 'Service Unavailable',
+				return data(t('errors.headscale.unreachable'), {
+					statusText: t('status.serviceUnavailable'),
 					status: 503,
 				});
 			}
 
 			if (error.code === 'ETIMEDOUT') {
-				return data('Timed out waiting for a response from the Headscale API', {
-					statusText: 'Request Timeout',
+				return data(t('errors.headscale.timeout'), {
+					statusText: t('status.requestTimeout'),
 					status: 408,
 				});
 			}
 
 			if (error.code === 'ECONNRESET') {
-				return data('The Headscale API is not reachable', {
-					statusText: 'Service Unavailable',
+				return data(t('errors.headscale.unreachable'), {
+					statusText: t('status.serviceUnavailable'),
 					status: 503,
 				});
 			}
 
 			if (error.code === 'EPIPE') {
-				return data('The Headscale API is not reachable', {
-					statusText: 'Service Unavailable',
+				return data(t('errors.headscale.unreachable'), {
+					statusText: t('status.serviceUnavailable'),
 					status: 503,
 				});
 			}
 
 			if (error.code === 'ENETUNREACH') {
-				return data('The Headscale API is not reachable', {
-					statusText: 'Service Unavailable',
+				return data(t('errors.headscale.unreachable'), {
+					statusText: t('status.serviceUnavailable'),
 					status: 503,
 				});
 			}
 
 			if (error.code === 'ENETRESET') {
-				return data('The Headscale API is not reachable', {
-					statusText: 'Service Unavailable',
+				return data(t('errors.headscale.unreachable'), {
+					statusText: t('status.serviceUnavailable'),
 					status: 503,
 				});
 			}
 
-			return data('The Headscale API is not reachable', {
-				statusText: 'Service Unavailable',
+			return data(t('errors.headscale.unreachable'), {
+				statusText: t('status.serviceUnavailable'),
 				status: 503,
 			});
 
 		default:
-			return data((error as Error).message ?? 'An unknown error occurred', {
-				statusText: 'Internal Server Error',
+			return data((error as Error).message ?? t('errors.generic.unknown'), {
+				statusText: t('status.internalServerError'),
 				status: 500,
 			});
 	}
@@ -129,7 +133,7 @@ function friendlyError(givenError: unknown) {
 
 export async function createApiClient(base: string, certPath?: string) {
 	if (!certPath) {
-		return new ApiClient(new Agent(), base);
+		return new ApiClient(new Agent(), base, getTranslator('en'));
 	}
 
 	try {
@@ -137,21 +141,35 @@ export async function createApiClient(base: string, certPath?: string) {
 		const data = await readFile(certPath, 'utf8');
 
 		log.info('config', 'Using certificate from %s', certPath);
-		return new ApiClient(new Agent({ connect: { ca: data.trim() } }), base);
+		return new ApiClient(
+			new Agent({ connect: { ca: data.trim() } }),
+			base,
+			getTranslator('en'),
+		);
 	} catch (error) {
 		log.error('config', 'Failed to load Headscale TLS cert: %s', error);
 		log.debug('config', 'Error Details: %o', error);
-		return new ApiClient(new Agent(), base);
+		return new ApiClient(new Agent(), base, getTranslator('en'));
 	}
 }
 
 export class ApiClient {
 	private agent: Agent;
 	private base: string;
+	private translator: Translator;
 
-	constructor(agent: Agent, base: string) {
+	constructor(agent: Agent, base: string, translator: Translator) {
 		this.agent = agent;
 		this.base = base;
+		this.translator = translator;
+	}
+
+	withTranslator(translator: Translator) {
+		if (translator === this.translator) {
+			return this;
+		}
+
+		return new ApiClient(this.agent, this.base, translator);
 	}
 
 	private async defaultFetch(
@@ -175,7 +193,7 @@ export class ApiClient {
 
 			return res;
 		} catch (error: unknown) {
-			throw friendlyError(error);
+			throw friendlyError(error, this.translator);
 		}
 	}
 

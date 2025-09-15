@@ -1,0 +1,19 @@
+{
+	"errors": {
+		"headscale": {
+			"timeout": "Timed out waiting for a response from the Headscale API",
+			"unreachable": "The Headscale API is not reachable",
+			"unableRequest": "Unable to make a request (this is most likely a bug)",
+			"malformed": "The Headscale API returned a malformed response"
+		},
+		"generic": {
+			"unknown": "An unknown error occurred"
+		}
+	},
+	"status": {
+		"requestTimeout": "Request Timeout",
+		"serviceUnavailable": "Service Unavailable",
+		"internalServerError": "Internal Server Error",
+		"badGateway": "Bad Gateway"
+	}
+}

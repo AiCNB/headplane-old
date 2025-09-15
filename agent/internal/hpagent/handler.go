@@ -6,6 +6,7 @@ import (
 	"os"
 	"sync"
 
+	"github.com/tale/headplane/agent/internal/i18n"
 	"github.com/tale/headplane/agent/internal/tsnet"
 	"github.com/tale/headplane/agent/internal/util"
 	"tailscale.com/tailcfg"
@@ -32,16 +33,36 @@ func FollowMaster(agent *tsnet.TSAgent) {
 		var msg RecvMessage
 		err := json.Unmarshal(line, &msg)
 		if err != nil {
-			log.Error("Unable to unmarshal message: %s", err)
-			log.Debug("Full Error: %v", err)
+			log.Error("%s", i18n.Message(
+				"agent.hpagent.unmarshal_failed",
+				"Unable to unmarshal message: {{.Error}}",
+				map[string]any{"Error": err},
+			))
+			log.Debug("%s", i18n.Message(
+				"agent.hpagent.full_error",
+				"Full Error: {{.Error}}",
+				map[string]any{"Error": err},
+			))
 			continue
 		}
 
-		log.Debug("Recieved message from master: %v", line)
+		log.Debug("%s", i18n.Message(
+			"agent.hpagent.received_message",
+			"Received message from master: {{.Message}}",
+			map[string]any{"Message": string(line)},
+		))
 
 		if len(msg.NodeIDs) == 0 {
-			log.Debug("Message recieved had no node IDs")
-			log.Debug("Full message: %s", line)
+			log.Debug("%s", i18n.Message(
+				"agent.hpagent.missing_node_ids",
+				"Message received had no node IDs",
+				nil,
+			))
+			log.Debug("%s", i18n.Message(
+				"agent.hpagent.full_message",
+				"Full message: {{.Message}}",
+				map[string]any{"Message": string(line)},
+			))
 			continue
 		}
 
@@ -56,12 +77,20 @@ func FollowMaster(agent *tsnet.TSAgent) {
 				defer wg.Done()
 				result, err := agent.GetStatusForPeer(nodeID)
 				if err != nil {
-					log.Error("Unable to get status for node %s: %s", nodeID, err)
+					log.Error("%s", i18n.Message(
+						"agent.hpagent.status_failed",
+						"Unable to get status for node {{.NodeID}}: {{.Error}}",
+						map[string]any{"NodeID": nodeID, "Error": err},
+					))
 					return
 				}
 
 				if result == nil {
-					log.Debug("No status for node %s", nodeID)
+					log.Debug("%s", i18n.Message(
+						"agent.hpagent.status_missing",
+						"No status for node {{.NodeID}}",
+						map[string]any{"NodeID": nodeID},
+					))
 					return
 				}
 
@@ -74,7 +103,11 @@ func FollowMaster(agent *tsnet.TSAgent) {
 		wg.Wait()
 
 		// Send the results back to the Headplane master
-		log.Debug("Sending status back to master: %v", results)
+		log.Debug("%s", i18n.Message(
+			"agent.hpagent.sending_status",
+			"Sending status back to master: {{.Results}}",
+			map[string]any{"Results": results},
+		))
 		log.Msg(&SendMessage{
 			Type: "status",
 			Data: results,
@@ -82,6 +115,10 @@ func FollowMaster(agent *tsnet.TSAgent) {
 	}
 
 	if err := scanner.Err(); err != nil {
-		log.Fatal("Error reading from stdin: %s", err)
+		log.Fatal("%s", i18n.Message(
+			"agent.hpagent.stdin_error",
+			"Error reading from stdin: {{.Error}}",
+			map[string]any{"Error": err},
+		))
 	}
 }

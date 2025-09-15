@@ -1,0 +1,31 @@
+{
+	"header": {
+		"download": "下载",
+		"nav": {
+			"machines": "设备",
+			"users": "用户"
+		}
+	},
+	"machines": {
+		"all_machines": "所有设备",
+		"title": "设备",
+		"tooltip_short_domain": "您的 tailnet 用户可以使用这个简短的 DNS 名称访问该设备。",
+		"tooltip_full_domain": "您的 tailnet 用户可以使用这个 DNS 名称访问该设备。"
+	},
+	"onboarding": {
+		"download_selector": "下载选择器",
+		"download_windows": "下载 Windows 客户端",
+		"download_macos": "下载 macOS 客户端",
+		"download_ios": "下载 iOS 客户端",
+		"download_android": "下载 Android 客户端"
+	},
+	"users": {
+		"title": "用户",
+		"delete_has_machines": "如果用户仍然拥有设备，则无法删除。请先删除或重新分配其设备。",
+		"manage_banner": {
+			"oidc_prefix": "用户由您的 ",
+			"oidc_suffix": " 进行管理。组和用户信息不会自动同步。 ",
+			"not_managed": "用户未由外部系统管理。启用 OpenID Connect 可以带来更好的使用体验。 "
+		}
+	}
+}
