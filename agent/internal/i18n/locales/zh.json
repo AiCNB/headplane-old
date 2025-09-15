@@ -1,0 +1,134 @@
+[
+	{
+		"id": "agent.config.load_failed",
+		"translation": "加载配置失败：{{.Error}}"
+	},
+	{
+		"id": "agent.config.required_env",
+		"translation": "{{.Name}} 是必填项"
+	},
+	{
+		"id": "agent.config.ts_unreachable",
+		"translation": "无法连接到 TS 控制服务器：{{.Reason}}"
+	},
+	{
+		"id": "agent.hpagent.unmarshal_failed",
+		"translation": "无法解析消息：{{.Error}}"
+	},
+	{
+		"id": "agent.hpagent.full_error",
+		"translation": "完整错误：{{.Error}}"
+	},
+	{
+		"id": "agent.hpagent.received_message",
+		"translation": "收到主控消息：{{.Message}}"
+	},
+	{
+		"id": "agent.hpagent.missing_node_ids",
+		"translation": "收到的消息没有节点 ID"
+	},
+	{
+		"id": "agent.hpagent.full_message",
+		"translation": "完整消息：{{.Message}}"
+	},
+	{
+		"id": "agent.hpagent.status_failed",
+		"translation": "无法获取节点 {{.NodeID}} 的状态：{{.Error}}"
+	},
+	{
+		"id": "agent.hpagent.status_missing",
+		"translation": "节点 {{.NodeID}} 没有状态信息"
+	},
+	{
+		"id": "agent.hpagent.sending_status",
+		"translation": "正在向主控发送状态：{{.Results}}"
+	},
+	{
+		"id": "agent.hpagent.stdin_error",
+		"translation": "读取标准输入时出错：{{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.invalid_node_prefix",
+		"translation": "节点 ID 缺少前缀：{{.NodeID}}"
+	},
+	{
+		"id": "agent.tsnet.query_peer",
+		"translation": "查询节点 {{.NodeID}} 的状态"
+	},
+	{
+		"id": "agent.tsnet.status_failed",
+		"translation": "获取状态失败：{{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.decode_failed",
+		"translation": "解析十六进制失败：{{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.invalid_length",
+		"translation": "节点 ID 长度无效：{{.Length}}"
+	},
+	{
+		"id": "agent.tsnet.peer_not_found",
+		"translation": "状态中找不到节点：{{.NodeID}}"
+	},
+	{
+		"id": "agent.tsnet.whois_failed",
+		"translation": "获取 whois 信息失败：{{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.got_whois",
+		"translation": "获取到节点 {{.NodeID}} 的 whois：{{.Whois}}"
+	},
+	{
+		"id": "agent.tsnet.abs_path_failed",
+		"translation": "获取绝对路径失败：{{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.workdir_create_failed",
+		"translation": "无法创建代理工作目录：{{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.tailnet_connect_failed",
+		"translation": "连接 Tailnet 失败：{{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.local_client_failed",
+		"translation": "初始化本地 Tailscale 客户端失败：{{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.marshal_failed",
+		"translation": "序列化公钥失败：{{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.connected",
+		"translation": "已连接到 Tailnet（公钥：{{.PublicKey}}）"
+	},
+	{
+		"id": "agent.logger.debug_enabled",
+		"translation": "正在为 headplane-agent 启用调试日志"
+	},
+	{
+		"id": "agent.logger.debug_warning",
+		"translation": "请注意，这会输出大量信息"
+	},
+	{
+		"id": "agent.tsnet.error.invalid_node_id",
+		"translation": "无效的节点 ID：{{.NodeID}}"
+	},
+	{
+		"id": "agent.tsnet.error.get_status",
+		"translation": "获取状态失败：{{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.error.decode_hex",
+		"translation": "解析十六进制失败：{{.Error}}"
+	},
+	{
+		"id": "agent.tsnet.error.invalid_length",
+		"translation": "节点 ID 长度无效：{{.Length}}"
+	},
+	{
+		"id": "agent.tsnet.error.whois",
+		"translation": "获取 whois 信息失败：{{.Error}}"
+	}
+]

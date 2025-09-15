@@ -1,0 +1,19 @@
+{
+	"errors": {
+		"headscale": {
+			"timeout": "等待 Headscale API 响应超时",
+			"unreachable": "无法连接到 Headscale API",
+			"unableRequest": "无法发出请求（这很可能是一个缺陷）",
+			"malformed": "Headscale API 返回了格式错误的响应"
+		},
+		"generic": {
+			"unknown": "发生未知错误"
+		}
+	},
+	"status": {
+		"requestTimeout": "请求超时",
+		"serviceUnavailable": "服务不可用",
+		"internalServerError": "服务器内部错误",
+		"badGateway": "网关错误"
+	}
+}

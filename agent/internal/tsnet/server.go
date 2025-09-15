@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/tale/headplane/agent/internal/config"
+	"github.com/tale/headplane/agent/internal/i18n"
 	"github.com/tale/headplane/agent/internal/util"
 	"tailscale.com/client/tailscale"
 	"tailscale.com/tsnet"
@@ -24,11 +25,19 @@ func NewAgent(cfg *config.Config) *TSAgent {
 
 	dir, err := filepath.Abs(cfg.WorkDir)
 	if err != nil {
-		log.Fatal("Failed to get absolute path: %s", err)
+		log.Fatal("%s", i18n.Message(
+			"agent.tsnet.abs_path_failed",
+			"Failed to get absolute path: {{.Error}}",
+			map[string]any{"Error": err},
+		))
 	}
 
 	if err := os.MkdirAll(dir, 0700); err != nil {
-		log.Fatal("Cannot create agent work directory: %s", err)
+		log.Fatal("%s", i18n.Message(
+			"agent.tsnet.workdir_create_failed",
+			"Cannot create agent work directory: {{.Error}}",
+			map[string]any{"Error": err},
+		))
 	}
 
 	server := &tsnet.Server{
@@ -54,20 +63,36 @@ func (s *TSAgent) Connect() {
 	// Waits until the agent is up and running.
 	status, err := s.Up(context.Background())
 	if err != nil {
-		log.Fatal("Failed to connect to Tailnet: %s", err)
+		log.Fatal("%s", i18n.Message(
+			"agent.tsnet.tailnet_connect_failed",
+			"Failed to connect to Tailnet: {{.Error}}",
+			map[string]any{"Error": err},
+		))
 	}
 
 	s.Lc, err = s.LocalClient()
 	if err != nil {
-		log.Fatal("Failed to initialize local Tailscale client: %s", err)
+		log.Fatal("%s", i18n.Message(
+			"agent.tsnet.local_client_failed",
+			"Failed to initialize local Tailscale client: {{.Error}}",
+			map[string]any{"Error": err},
+		))
 	}
 
 	id, err := status.Self.PublicKey.MarshalText()
 	if err != nil {
-		log.Fatal("Failed to marshal public key: %s", err)
+		log.Fatal("%s", i18n.Message(
+			"agent.tsnet.marshal_failed",
+			"Failed to marshal public key: {{.Error}}",
+			map[string]any{"Error": err},
+		))
 	}
 
-	log.Info("Connected to Tailnet (PublicKey: %s)", status.Self.PublicKey)
+	log.Info("%s", i18n.Message(
+		"agent.tsnet.connected",
+		"Connected to Tailnet (PublicKey: {{.PublicKey}})",
+		map[string]any{"PublicKey": status.Self.PublicKey},
+	))
 	s.ID = string(id)
 }
 

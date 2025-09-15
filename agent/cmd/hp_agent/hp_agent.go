@@ -4,6 +4,7 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/tale/headplane/agent/internal/config"
 	"github.com/tale/headplane/agent/internal/hpagent"
+	"github.com/tale/headplane/agent/internal/i18n"
 	"github.com/tale/headplane/agent/internal/tsnet"
 	"github.com/tale/headplane/agent/internal/util"
 )
@@ -17,7 +18,11 @@ func main() {
 	log := util.GetLogger()
 	cfg, err := config.Load()
 	if err != nil {
-		log.Fatal("Failed to load config: %s", err)
+		log.Fatal("%s", i18n.Message(
+			"agent.config.load_failed",
+			"Failed to load config: {{.Error}}",
+			map[string]any{"Error": err},
+		))
 	}
 
 	log.SetDebug(cfg.Debug)
