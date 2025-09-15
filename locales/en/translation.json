@@ -1,0 +1,31 @@
+{
+	"header": {
+		"download": "Download",
+		"nav": {
+			"machines": "Machines",
+			"users": "Users"
+		}
+	},
+	"machines": {
+		"all_machines": "All Machines",
+		"title": "Machines",
+		"tooltip_short_domain": "Users of your tailnet can use this DNS short name to access this machine.",
+		"tooltip_full_domain": "Users of your tailnet can use this DNS name to access this machine."
+	},
+	"onboarding": {
+		"download_selector": "Download Selector",
+		"download_windows": "Download for Windows",
+		"download_macos": "Download for macOS",
+		"download_ios": "Download for iOS",
+		"download_android": "Download for Android"
+	},
+	"users": {
+		"title": "Users",
+		"delete_has_machines": "Users cannot be deleted if they have machines. Please delete or re-assign their machines to other users before proceeding.",
+		"manage_banner": {
+			"oidc_prefix": "Users are managed through your ",
+			"oidc_suffix": ". Groups and user information do not automatically sync. ",
+			"not_managed": "Users are not managed externally. Using OpenID Connect can create a better experience when using Headscale. "
+		}
+	}
+}

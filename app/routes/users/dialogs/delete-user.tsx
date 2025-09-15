@@ -1,5 +1,6 @@
 import Dialog from '~/components/Dialog';
 import { Machine, User } from '~/types';
+import { t } from '~/utils/i18n';
 
 interface DeleteProps {
 	user: User & { machines: Machine[] };
@@ -18,8 +19,7 @@ export default function DeleteUser({ user, isOpen, setIsOpen }: DeleteProps) {
 				<Dialog.Title>Delete {name}?</Dialog.Title>
 				{user.machines.length > 0 ? (
 					<Dialog.Text className="mb-6">
-						Users cannot be deleted if they have machines. Please delete or
-						re-assign their machines to other users before proceeding.
+						{t('users.delete_has_machines')}
 					</Dialog.Text>
 				) : (
 					<Dialog.Text className="mb-6">

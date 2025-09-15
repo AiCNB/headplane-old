@@ -8,6 +8,7 @@ import type { LoadContext } from '~/server';
 import { Capabilities } from '~/server/web/roles';
 import type { Machine, User } from '~/types';
 import cn from '~/utils/cn';
+import { t } from '~/utils/i18n';
 import { mapNodes } from '~/utils/node-info';
 import MachineRow from './components/machine-row';
 import NewMachine from './dialogs/new';
@@ -86,7 +87,7 @@ export default function Page() {
 		<>
 			<div className="flex justify-between items-center mb-6">
 				<div className="flex flex-col w-2/3">
-					<h1 className="text-2xl font-medium mb-2">Machines</h1>
+					<h1 className="text-2xl font-medium mb-2">{t('machines.title')}</h1>
 					<p>
 						Manage the devices connected to your Tailnet.{' '}
 						<Link

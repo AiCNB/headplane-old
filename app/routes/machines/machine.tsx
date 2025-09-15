@@ -14,6 +14,7 @@ import type { LoadContext } from '~/server';
 import type { Machine, User } from '~/types';
 import cn from '~/utils/cn';
 import { getOSInfo, getTSVersion } from '~/utils/host-info';
+import { t } from '~/utils/i18n';
 import { mapNodes } from '~/utils/node-info';
 import { mapTagsToComponents, uiTagsForNode } from './components/machine-row';
 import MenuOptions from './components/menu';
@@ -79,7 +80,7 @@ export default function Page() {
 		<div>
 			<p className="mb-8 text-md">
 				<RemixLink to="/machines" className="font-medium">
-					All Machines
+					{t('machines.all_machines')}
 				</RemixLink>
 				<span className="mx-2">/</span>
 				{node.givenName}
@@ -109,7 +110,10 @@ export default function Page() {
 					</span>
 					<div className="flex items-center gap-x-2.5 mt-1">
 						<UserCircle />
-						{node.user.name || node.user.displayName || node.user.email || node.user.id}
+						{node.user.name ||
+							node.user.displayName ||
+							node.user.email ||
+							node.user.id}
 					</div>
 				</div>
 				<div className="p-2 pl-4">
@@ -254,7 +258,15 @@ export default function Page() {
 				className="w-full max-w-full grid grid-cols-1 lg:grid-cols-2 gap-y-2 sm:gap-x-12"
 			>
 				<div className="flex flex-col gap-1">
-					<Attribute name="Creator" value={node.user.name || node.user.displayName || node.user.email || node.user.id} />
+					<Attribute
+						name="Creator"
+						value={
+							node.user.name ||
+							node.user.displayName ||
+							node.user.email ||
+							node.user.id
+						}
+					/>
 					<Attribute name="Machine name" value={node.givenName} />
 					<Attribute
 						tooltip="OS hostname is published by the machine’s operating system and is used as the default name for the machine."
@@ -324,14 +336,14 @@ export default function Page() {
 					/>
 					<Attribute
 						isCopyable
-						tooltip="Users of your tailnet can use this DNS short name to access this machine."
+						tooltip={t('machines.tooltip_short_domain')}
 						name="Short domain"
 						value={node.givenName}
 					/>
 					{magic ? (
 						<Attribute
 							isCopyable
-							tooltip="Users of your tailnet can use this DNS name to access this machine."
+							tooltip={t('machines.tooltip_full_domain')}
 							name="Full domain"
 							value={`${node.givenName}.${magic}`}
 						/>
