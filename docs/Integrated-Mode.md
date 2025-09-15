@@ -1,5 +1,7 @@
 # Integrated Mode
 
+[English](Integrated-Mode.md) | [简体中文](Integrated-Mode.zh-CN.md)
+
 <picture>
     <source
         media="(prefers-color-scheme: dark)"

@@ -1,5 +1,7 @@
 # Bare-Metal Mode
 
+[English](Bare-Metal.md) | [简体中文](Bare-Metal.zh-CN.md)
+
 Bare-Metal mode is the most flexible way to deploy Headplane. It allows you to
 run Headplane on any system without the need for Docker or any other container
 runtime. This is not recommended, but I understand that everyone has

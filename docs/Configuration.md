@@ -1,4 +1,6 @@
 # Configuration
+
+[English](Configuration.md) | [简体中文](Configuration.zh-CN.md)
 > Previous versions of Headplane used environment variables without a configuration file.
 > Since 0.5, you will need to manually migrate your configuration to the new format.
 

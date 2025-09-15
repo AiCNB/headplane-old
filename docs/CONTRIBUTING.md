@@ -1,5 +1,7 @@
 # Contributing to Headplane
 
+[English](CONTRIBUTING.md) | [简体中文](CONTRIBUTING.zh-CN.md)
+
 Thank you for your interest in contributing to Headplane. I maintain this
 project entirely on my own so any help is greatly appreciated. Since I am the
 sole maintainer, I have a few guidelines which help make it significantly easier
