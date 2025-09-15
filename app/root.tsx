@@ -8,9 +8,11 @@ import {
 	useNavigation,
 } from 'react-router';
 import '@fontsource-variable/inter';
+import { I18nextProvider } from 'react-i18next';
 import { ErrorPopup } from '~/components/Error';
 import ProgressBar from '~/components/ProgressBar';
 import ToastProvider from '~/components/ToastProvider';
+import i18n from '~/i18n';
 import stylesheet from '~/tailwind.css?url';
 import { LiveDataProvider } from '~/utils/live-data';
 import { useToastQueue } from '~/utils/toast';
@@ -34,23 +36,28 @@ export function Layout({ children }: { readonly children: React.ReactNode }) {
 	// that control its state are usually open in portal containers which
 	// are not a part of the normal React tree.
 	return (
-		<LiveDataProvider>
-			<html lang="en">
-				<head>
-					<meta charSet="utf-8" />
-					<meta name="viewport" content="width=device-width, initial-scale=1" />
-					<Meta />
-					<Links />
-					<link rel="icon" href="favicon.ico" />
-				</head>
-				<body className="overscroll-none dark:bg-headplane-900 dark:text-headplane-50">
-					{children}
-					<ToastProvider queue={toastQueue} />
-					<ScrollRestoration />
-					<Scripts />
-				</body>
-			</html>
-		</LiveDataProvider>
+		<I18nextProvider i18n={i18n}>
+			<LiveDataProvider>
+				<html lang={i18n.language}>
+					<head>
+						<meta charSet="utf-8" />
+						<meta
+							name="viewport"
+							content="width=device-width, initial-scale=1"
+						/>
+						<Meta />
+						<Links />
+						<link rel="icon" href="favicon.ico" />
+					</head>
+					<body className="overscroll-none dark:bg-headplane-900 dark:text-headplane-50">
+						{children}
+						<ToastProvider queue={toastQueue} />
+						<ScrollRestoration />
+						<Scripts />
+					</body>
+				</html>
+			</LiveDataProvider>
+		</I18nextProvider>
 	);
 }
 
