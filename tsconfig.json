@@ -1,15 +1,15 @@
 {
 	"include": [
-	"**/*.ts",
-	"**/*.tsx",
-	"**/.server/**/*.ts",
-	"**/.server/**/*.tsx",
-	"**/.client/**/*.ts",
-	"**/.client/**/*.tsx"
+		"**/*.ts",
+		"**/*.tsx",
+		"**/.server/**/*.ts",
+		"**/.server/**/*.tsx",
+		"**/.client/**/*.ts",
+		"**/.client/**/*.tsx"
 	],
 	"compilerOptions": {
 		"lib": ["DOM", "DOM.Iterable", "ES2022"],
-		"types": ["vite/client"],
+		"types": ["vite/client", "node"],
 		"isolatedModules": true,
 		"esModuleInterop": true,
 		"jsx": "react-jsx",
