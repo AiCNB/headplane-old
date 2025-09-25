@@ -1,0 +1,55 @@
+name: build-cnb
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    env:
+      REGISTRY_HOST: docker.cnb.cool
+      IMAGE_PATH: docker.cnb.cool/g.h/headplane   # ← 改成 headplane 的仓库路径
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login CNB
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY_HOST }}
+          username: cnb
+          password: ${{ secrets.CNB_GH_DOCKER }}  # 继续用你已有的 Secret
+
+      - name: Tags
+        id: meta
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          echo "short_sha=${SHORT_SHA}" >> $GITHUB_OUTPUT
+
+      - name: Build & Push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile          # ← 用 headplane 自带 Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ env.IMAGE_PATH }}:latest
+            ${{ env.IMAGE_PATH }}:${{ steps.meta.outputs.short_sha }}
+          cache-from: type=registry,ref=${{ env.IMAGE_PATH }}:buildcache
+          cache-to: type=registry,ref=${{ env.IMAGE_PATH }}:buildcache,mode=max
