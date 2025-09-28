@@ -1,0 +1,17 @@
+name: 8 CNB integration
+on:
+  schedule: [{ cron: "*/30 * * * *" }]
+  push: { branches: ["ai/**"] }
+  workflow_dispatch:
+
+jobs:
+  call:
+    uses: weu8/workflows/.github/workflows/cnb-all.yml@main
+    with:
+      upstream_repo: https://github.com/tale/headplane
+      cnb_repo_url:  https://cnb.cool/g.h/headplane
+      # fork_branch: main
+      # push_fork_ff: true
+      # open_pr_if_diverged: true
+      # delete_ai_branch: true
+    secrets: inherit
